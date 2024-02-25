@@ -14,3 +14,43 @@ export const login = async (formData: ILoginForm) => {
     });
   }
 };
+
+export const getAllClient = async () => {
+  try {
+    const response = await ApiFetcher.get(`/admin/clients/all`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+}
+
+export const getClientById = async (id:string) => {
+  try {
+    const response = await ApiFetcher.get(`/admin/client/${id}`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+}
+
+export const approveClient = async (id:string) => {
+  try {
+    const response = await ApiFetcher.patch(`/admin/client/${id}/approve`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+}
+

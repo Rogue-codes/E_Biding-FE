@@ -11,6 +11,7 @@ const ApiFetcher = axios.create({
     "Content-Type": "application/json",
     Accept: "application/json, text/plain, */*",
   },
+  withCredentials: true,
 });
 
 const onRequest = (request: any) => {

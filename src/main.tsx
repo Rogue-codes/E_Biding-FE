@@ -12,6 +12,8 @@ import Home from "./pages/dashboard/Home";
 import Layout from "./layout/Layout";
 import Analytics from "./pages/dashboard/Analytics";
 import BiddingManagement from "./pages/dashboard/BiddingManagement";
+import { Provider } from "react-redux";
+import { store } from "./redux/store/store";
 
 const router = createBrowserRouter([
   {
@@ -67,9 +69,11 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <SnackbarProvider />
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <SnackbarProvider />
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

@@ -1,7 +1,9 @@
-import { isLoggedIn } from "../helpers";
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function PublicRoute() {
-  const hasAccess: boolean = isLoggedIn;
-  return hasAccess ? <Navigate to="/" /> : <Outlet />;
+
+  const user = useSelector((state: any) => state.auth.user)
+  console.log(user);
+  return user ? <Navigate to="/" /> : <Outlet />;
 }

@@ -4,6 +4,8 @@ import { useMutation } from "react-query";
 import * as apiClient from "../../../services/Api";
 import { enqueueSnackbar } from "notistack";
 import Loading from "react-loading";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/slices/authSlice";
 
 export interface ILoginForm {
   userName: string;
@@ -17,13 +19,15 @@ export default function Login() {
     formState: { errors },
   } = useForm<ILoginForm>();
 
+  const dispatch = useDispatch();
+
   const mutation = useMutation(apiClient.login, {
     onSuccess: (data: any) => {
       enqueueSnackbar(`${data.message}`, {
         variant: "success",
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });
-      console.log(data.data);
+      dispatch(login(data.data));
     },
     onError: (error: any) => {
       // enqueueSnackbar(`${error}`, {

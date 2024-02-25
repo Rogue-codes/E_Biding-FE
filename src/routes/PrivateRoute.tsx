@@ -1,7 +1,7 @@
-import { isLoggedIn } from '../helpers'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom';
+import { useGetUser } from '../hooks/useGetUserHooks';
 
 export default function PrivateRoute() {
-    const hasAccess:boolean = isLoggedIn
-    return !hasAccess ? <Navigate to='/auth'/> : <Outlet/>
+  const user = useGetUser(); // Using the custom hook here
+  return !user ? <Navigate to='/auth' /> : <Outlet />;
 }
