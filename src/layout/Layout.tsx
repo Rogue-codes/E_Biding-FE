@@ -14,7 +14,7 @@ export default function Layout({ children }: Ilayout) {
       <div className="ml-[26vw] w-[calc(100%-25.5vw)]">
         <Nav />
         <Filter />
-        <div className="w-full pt-64">{children}</div>
+        <div className="w-full pt-32">{children}</div>
         <Footer />
       </div>
     </div>

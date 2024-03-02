@@ -36,4 +36,5 @@ export interface IClient {
   phoneNumber: string;
   postalCode: string;
   status: string;
+  createdAt:string;
 }

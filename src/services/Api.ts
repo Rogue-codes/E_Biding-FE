@@ -16,9 +16,9 @@ export const login = async (formData: ILoginForm) => {
   }
 };
 
-export const getAllClient = async () => {
+export const getAllClient = async (searchText:string, page?:number) => {
   try {
-    const response = await ApiFetcher.get(`/admin/clients/all`);
+    const response = await ApiFetcher.get(`/admin/clients/all?search=${searchText}&page=${page}`);
     return response.data;
   } catch (error: any) {
     console.log(error);

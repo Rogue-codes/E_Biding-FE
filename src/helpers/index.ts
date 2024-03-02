@@ -12,3 +12,4 @@ export function getFutureDate (days : number, startDate? : Date | null) : Date {
     futureDay.setSeconds(0); futureDay.setMinutes(0); futureDay.setHours(0); futureDay.setMilliseconds(0)
     return futureDay;
 }
+

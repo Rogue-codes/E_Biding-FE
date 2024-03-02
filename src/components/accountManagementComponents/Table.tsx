@@ -5,12 +5,16 @@ import Backdrop from "../modal/Backdrop";
 import ViewClientModal from "../modal/ViewClientModal";
 import ApprovalModal from "../modal/ApprovalModal";
 import RejectionModal from "../modal/RejectionModal";
+import { formatDate } from "../../helpers/date";
+import Pagination from "../pagination/Pagination";
 
 interface ITable {
   clientData: IGetAllClientData;
   isLoading: boolean;
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  page:number
 }
-export default function Table({ clientData, isLoading }: ITable) {
+export default function Table({ clientData, isLoading, setPage, page }: ITable) {
   const [showBackDrop, setShowBackDrop] = useState<boolean>(false);
   const [client, setClient] = useState<IClient | null>();
   const [showViewModal, setShowViewModal] = useState<boolean>(false);
@@ -54,7 +58,7 @@ export default function Table({ clientData, isLoading }: ITable) {
 
   console.log(clientData?.data);
   return (
-    <table className="w-full relative">
+    <table className="w-full relative pb-24">
       <thead className="h-12 text-sm font-medium text-OBS-Darkest border-b border-NGA/Light">
         <tr>
           <th>Date Created</th>
@@ -67,17 +71,18 @@ export default function Table({ clientData, isLoading }: ITable) {
       {isLoading ? (
         loadingComponent()
       ) : (
-        <tbody className="text-center w-full">
+        <>
+        <tbody className="text-center w-full border-b border-NGA/Light" >
           {clientData?.data?.map((client) => (
             <tr className="h-12 " key={client._id}>
-              <td className="text-xs text-OBS-Darkest">01-01-2023</td>
+              <td className="text-xs text-OBS-Darkest">{formatDate(client.createdAt)}</td>
               <td className="text-xs text-OBS-Darkest">{client?.name}</td>
               <td className="text-xs text-OBS-Darkest">{client?.email}</td>
               <td className="text-xs font-semibold text-OBS-Darkest">
                 {client?.status}
               </td>
               <td className="w-[30%]">
-                <div className="flex justify-center items-center gap-2 mr-3">
+                <div className="flex justify-end items-center gap-2 mr-3">
                   <div
                     className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-NGA-Primary border-NGA-Primary rounded-[4px] !cursor-pointer hover:scale-105 transition-all"
                     onClick={() => showModal(client, "view")}
@@ -105,6 +110,8 @@ export default function Table({ clientData, isLoading }: ITable) {
             </tr>
           ))}
         </tbody>
+        <Pagination setPage={setPage} page={page} lastPage={clientData?.meta?.last_page}/>
+        </>
       )}
 
       {showBackDrop && (
