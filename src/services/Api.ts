@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ILoginForm } from "../pages/auth/login/Login";
 import ApiFetcher from "./ApiFetcher";
 import { enqueueSnackbar } from "notistack";
@@ -44,6 +45,19 @@ export const getClientById = async (id:string) => {
 export const approveClient = async (id:string) => {
   try {
     const response = await ApiFetcher.patch(`/admin/client/${id}/approve`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+}
+
+export const rejectClient = async (id:string) => {
+  try {
+    const response = await ApiFetcher.delete(`/admin/client/${id}/reject`);
     return response.data;
   } catch (error: any) {
     console.log(error);

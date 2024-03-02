@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion";
 import { dropIn } from "../../utils/framerMotionVariants";
 import { Icons } from "../../icons";
@@ -11,11 +12,7 @@ interface IViewClientModal {
   closeModal: () => void;
 }
 export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
-  const {
-    data: clientData,
-    isLoading,
-    isError,
-  } = useQuery(
+  const { data: clientData, isLoading } = useQuery(
     ["clientByIdData", id], // Query key, typically an array of parameters
     () => apiClient.getClientById(id), // Query function
     {
@@ -34,6 +31,12 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
       },
     }
   );
+
+  const BASE_URL = import.meta.env.VITE_ViEW_PDF_URL + "";
+
+  const handleFileView = () => {
+    window.open(BASE_URL + "/" + clientData?.data?.cacDoc, "_blank");
+  };
 
   const client: IClient = clientData?.data;
 
@@ -120,7 +123,10 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
           <p className="text-black leading-6 text-sm">
             {isLoading ? "loading..." : client.cacDoc}
           </p>
-          <button className="px-3 py-1 bg-NGA-Primary border border-NGA-Primary text-white rounded-[4px] text-xs cursor-pointer hover:scale-105 transition-all">
+          <button
+            className="px-3 py-1 bg-NGA-Primary border border-NGA-Primary text-white rounded-[4px] text-xs cursor-pointer hover:scale-105 transition-all"
+            onClick={handleFileView}
+          >
             Download
           </button>
         </div>

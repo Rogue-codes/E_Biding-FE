@@ -4,6 +4,7 @@ import { useState } from "react";
 import Backdrop from "../modal/Backdrop";
 import ViewClientModal from "../modal/ViewClientModal";
 import ApprovalModal from "../modal/ApprovalModal";
+import RejectionModal from "../modal/RejectionModal";
 
 interface ITable {
   clientData: IGetAllClientData;
@@ -16,20 +17,28 @@ export default function Table({ clientData, isLoading }: ITable) {
   const [showApprovalModal, setShowApprovalModal] = useState<boolean>(false);
   const [showRejectionModal, setShowRejectionModal] = useState<boolean>(false);
 
-  const showModal = (client: IClient, clickedBtn: string) => {
+  const showModal = (client: IClient, clickedButton: string) => {
     setShowBackDrop(true);
-    if (clickedBtn === "view") {
-      setShowViewModal(true);
-      setShowApprovalModal(false);
-      setClient(client);
-    } else if (clickedBtn === "approve") {
-      setShowViewModal(false);
-      setShowApprovalModal(true);
-      setClient(client);
-    } else {
-      setShowRejectionModal(true);
+    switch (clickedButton) {
+      case "view":
+        setShowViewModal(true);
+        setShowApprovalModal(false);
+        setShowRejectionModal(false);
+        break;
+      case "approve":
+        setShowViewModal(false);
+        setShowApprovalModal(true);
+        setShowRejectionModal(false);
+        break;
+      default:
+        setShowViewModal(false);
+        setShowApprovalModal(false);
+        setShowRejectionModal(true);
+        break;
     }
+    setClient(client);
   };
+  
 
   const closeModal = () => {
     setShowBackDrop(false);
@@ -59,7 +68,7 @@ export default function Table({ clientData, isLoading }: ITable) {
         loadingComponent()
       ) : (
         <tbody className="text-center w-full">
-          {clientData?.data?.map((client, _index) => (
+          {clientData?.data?.map((client) => (
             <tr className="h-12 " key={client._id}>
               <td className="text-xs text-OBS-Darkest">01-01-2023</td>
               <td className="text-xs text-OBS-Darkest">{client?.name}</td>
@@ -68,23 +77,26 @@ export default function Table({ clientData, isLoading }: ITable) {
                 {client?.status}
               </td>
               <td className="w-[30%]">
-                <div className="flex justify-end items-center gap-2 mr-3">
+                <div className="flex justify-center items-center gap-2 mr-3">
                   <div
-                    className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-NGA-Primary border-NGA-Primary rounded-[4px] cursor-pointer hover:scale-105 transition-all"
+                    className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-NGA-Primary border-NGA-Primary rounded-[4px] !cursor-pointer hover:scale-105 transition-all"
                     onClick={() => showModal(client, "view")}
                   >
                     View
                   </div>
                   {client.status === "pending" && (
                     <div
-                      className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-white bg-OBS-Green rounded-[4px] cursor-pointer hover:scale-105 transition-all"
+                      className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-white bg-OBS-Green rounded-[4px] !cursor-pointer hover:scale-105 transition-all"
                       onClick={() => showModal(client, "approve")}
                     >
                       Approve
                     </div>
                   )}
                   {client.status === "pending" && (
-                    <div className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-white bg-OBS-Red rounded-[4px] cursor-pointer hover:scale-105 transition-all">
+                    <div
+                      className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-white bg-OBS-Red rounded-[4px] !cursor-pointer hover:scale-105 transition-all"
+                      onClick={() => showModal(client, "reject")}
+                    >
                       Reject
                     </div>
                   )}
@@ -106,6 +118,13 @@ export default function Table({ clientData, isLoading }: ITable) {
 
           {showApprovalModal && (
             <ApprovalModal closeModal={closeModal} client={client as IClient} />
+          )}
+
+          {showRejectionModal && (
+            <RejectionModal
+              closeModal={closeModal}
+              client={client as IClient}
+            />
           )}
         </Backdrop>
       )}

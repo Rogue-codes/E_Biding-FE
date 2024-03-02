@@ -7,6 +7,7 @@ import ErrorPage from "./pages/errorPage/ErrorPage";
 import PublicRoute from "./routes/PublicRoute";
 import Login from "./pages/auth/login/Login";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { SnackbarProvider } from "notistack";
 import Home from "./pages/dashboard/Home";
 import Layout from "./layout/Layout";
@@ -73,6 +74,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <SnackbarProvider />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>

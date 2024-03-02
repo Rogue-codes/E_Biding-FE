@@ -12,18 +12,18 @@ interface IApproveModal {
   closeModal: () => void;
   client: IClient;
 }
-export default function ApprovalModal({ closeModal, client }: IApproveModal) {
+export default function RejectionModal({ closeModal, client }: IApproveModal) {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
-    (id: string) => apiClient.approveClient(id), // Mutation function
+    (id: string) => apiClient.rejectClient(id), // Mutation function
     {
       onSuccess: (data) => {
         enqueueSnackbar(data.message, {
           variant: "success",
           anchorOrigin: { vertical: "top", horizontal: "right" },
         });
-        queryClient.invalidateQueries("clientData");
-        closeModal();
+        queryClient.invalidateQueries("clientData")
+    closeModal();
       },
       onError: (error: any) => {
         console.error("An error occurred:", error);
@@ -55,7 +55,7 @@ export default function ApprovalModal({ closeModal, client }: IApproveModal) {
       ) : (
         <>
           <p className="text-NGA/Darkest text-xl  font-bold text-center pb-4">
-            APPROVE USER : {client?.name}
+            REJECT USER : {client?.name}
           </p>
           <hr />
           <div className="w-full flex justify-center items-center gap-8 pt-6">

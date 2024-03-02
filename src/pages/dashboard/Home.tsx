@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "react-query";
 import * as apiClient from "../../services/Api";
 import Table from "../../components/accountManagementComponents/Table";
@@ -5,20 +6,14 @@ import { enqueueSnackbar } from "notistack";
 
 export default function Home() {
 
-  const {data:clientData, isLoading, isSuccess} = useQuery('clientData', apiClient.getAllClient, {
-    onSuccess: (data: any) => {
-      enqueueSnackbar(data.message, {
-        variant: 'success',
-        anchorOrigin: { vertical: 'top', horizontal: 'right' },
-      });
-    },
+  const {data:clientData, isLoading} = useQuery('clientData', apiClient.getAllClient, {
     onError: (error: any) => {
       console.error('An error occurred:', error);
       enqueueSnackbar(error.message, {
         variant: 'error',
         anchorOrigin: { vertical: 'top', horizontal: 'right' },
       });
-    },
+    }
   });
 
   console.log(clientData)
