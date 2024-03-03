@@ -23,7 +23,6 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
         });
       },
       onError: (error: any) => {
-        console.error("An error occurred:", error);
         enqueueSnackbar(error.message, {
           variant: "error",
           anchorOrigin: { vertical: "top", horizontal: "right" },

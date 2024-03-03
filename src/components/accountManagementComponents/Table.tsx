@@ -55,8 +55,7 @@ export default function Table({ clientData, isLoading, setPage, page }: ITable) 
       </div>
     );
   };
-
-  console.log(clientData?.data);
+  
   return (
     <table className="w-full relative pb-24">
       <thead className="h-12 text-sm font-medium text-OBS-Darkest border-b border-NGA/Light">

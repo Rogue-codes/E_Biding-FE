@@ -8,7 +8,6 @@ export const login = async (formData: ILoginForm) => {
     const response = await ApiFetcher.post(`/admin/login`, formData);
     return response.data;
   } catch (error: any) {
-    console.log(error);
     enqueueSnackbar(`${error.response.data.message}`, {
       variant: "error",
       anchorOrigin: { vertical: "top", horizontal: "right" },
@@ -16,55 +15,75 @@ export const login = async (formData: ILoginForm) => {
   }
 };
 
-export const getAllClient = async (searchText:string, page?:number) => {
+export const getAllClient = async (
+  searchText: string,
+  page?: number,
+  onlyApproval?: boolean
+) => {
   try {
-    const response = await ApiFetcher.get(`/admin/clients/all?search=${searchText}&page=${page}`);
+    const response = await ApiFetcher.get(
+      `/admin/clients/all?search=${searchText}&page=${page}${
+        onlyApproval && `&status=pending`
+      }`
+    );
     return response.data;
   } catch (error: any) {
-    console.log(error);
     enqueueSnackbar(`${error.response.data.message}`, {
       variant: "error",
       anchorOrigin: { vertical: "top", horizontal: "right" },
     });
   }
-}
+};
 
-export const getClientById = async (id:string) => {
+export const getClientById = async (id: string) => {
   try {
     const response = await ApiFetcher.get(`/admin/client/${id}`);
     return response.data;
   } catch (error: any) {
-    console.log(error);
     enqueueSnackbar(`${error.response.data.message}`, {
       variant: "error",
       anchorOrigin: { vertical: "top", horizontal: "right" },
     });
   }
-}
+};
 
-export const approveClient = async (id:string) => {
+export const approveClient = async (id: string) => {
   try {
     const response = await ApiFetcher.patch(`/admin/client/${id}/approve`);
     return response.data;
   } catch (error: any) {
-    console.log(error);
     enqueueSnackbar(`${error.response.data.message}`, {
       variant: "error",
       anchorOrigin: { vertical: "top", horizontal: "right" },
     });
   }
-}
+};
 
-export const rejectClient = async (id:string) => {
+export const rejectClient = async (id: string) => {
   try {
     const response = await ApiFetcher.delete(`/admin/client/${id}/reject`);
     return response.data;
   } catch (error: any) {
-    console.log(error);
     enqueueSnackbar(`${error.response.data.message}`, {
       variant: "error",
       anchorOrigin: { vertical: "top", horizontal: "right" },
     });
   }
-}
+};
 
+export const getAllAuctions = async (
+  searchText: string,
+  page?: number,
+) => {
+  try {
+    const response = await ApiFetcher.get(
+      `/auctions/all?search=${searchText}&page=${page}`
+    );
+    return response.data;
+  } catch (error: any) {
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+};

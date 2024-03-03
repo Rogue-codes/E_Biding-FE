@@ -15,6 +15,7 @@ import Analytics from "./pages/dashboard/Analytics";
 import BiddingManagement from "./pages/dashboard/BiddingManagement";
 import { Provider } from "react-redux";
 import { store } from "./redux/store/store";
+import Bid from "./components/biddingManagement/Bid";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <Layout>
             <Analytics />
+          </Layout>
+        ),
+      },
+      {
+        path: "/bidding-management/:id",
+        element: (
+          <Layout>
+            <Bid />
           </Layout>
         ),
       },

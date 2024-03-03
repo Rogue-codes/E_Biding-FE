@@ -28,6 +28,7 @@ export default {
         "OBS-Darkest":"#142633",
         "OBS-Green":"#47C96B",
         "OBS-Red":"#D93333",
+        "NGA/Successful":"#269B47",
         black:"#1A1D1F"
       }
     },

@@ -3,13 +3,22 @@ import { Icons } from "../../icons";
 import DateSelect from "../DateSelect/DateSelect";
 import { getFutureDate } from "../../helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSearch } from "../../redux/slices/filterSlice";
+import {
+  handleFilterByApproval,
+  handleSearch,
+} from "../../redux/slices/filterSlice";
+import { useLocation } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
 
 export default function Filter() {
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
+  // const [FilterByApproval, setFilterByApproval] = useState<boolean>(false);
 
   const searchText = useSelector((state: any) => state?.filter?.searchText);
+  const isFilterByApproval = useSelector(
+    (state: any) => state?.filter?.isFilterByApproval
+  );
 
   const dispatch = useDispatch();
 
@@ -25,6 +34,8 @@ export default function Filter() {
     if (toDate && toDate < fromDate!) setToDate(null);
     return returnFuture;
   }, [fromDate, toDate]);
+
+  const location = useLocation();
 
   return (
     <div className="w-[calc(100%-25.5vw)] bg-white z-20 fixed left-[26vw] top-24 py-2 px-4">
@@ -69,10 +80,28 @@ export default function Filter() {
           </button>
         </div>
 
-        <button className="bg-NGA-Primary text-white text-xs flex justify-start items-center gap-2 p-2 rounded-[4px] hover:scale-105 transition-all">
-          <Icons.add />
-          Create Bid Request
-        </button>
+        {location.pathname === "/" ? (
+          <div className="flex justify-start gap-2 items-center">
+            <div
+              className={`${
+                isFilterByApproval && "bg-NGA/Darkest"
+              } w-3 h-3 border cursor-pointer border-NGA/Darkest flex justify-center items-center`}
+              onClick={() =>
+                dispatch(handleFilterByApproval(!isFilterByApproval))
+              }
+            >
+              {isFilterByApproval && <FaCheck color="white" size={8} />}
+            </div>
+            <p className="text-NGA/Darkest text-xs font-medium">
+              Filter only approval requests
+            </p>
+          </div>
+        ) : (
+          <button className="bg-NGA-Primary text-white text-xs flex justify-start items-center gap-2 p-2 rounded-[4px] hover:scale-105 transition-all">
+            <Icons.add />
+            Create Bid Request
+          </button>
+        )}
       </div>
     </div>
   );

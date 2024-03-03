@@ -23,6 +23,16 @@ export interface IGetAllClientData {
   };
 }
 
+export interface IGetAllAuctionData {
+  data: IAuction[];
+  meta: {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+  };
+}
+
 export interface IClient {
   _id: string;
   RcNumber: string;
@@ -36,5 +46,21 @@ export interface IClient {
   phoneNumber: string;
   postalCode: string;
   status: string;
-  createdAt:string;
+  createdAt: string;
+}
+
+export interface IAuction {
+  _id: string;
+  auctionDescription: string;
+  itemDescription: string;
+  category: string[];
+  requirements: string[];
+  auctionImage: string;
+  startingAmount: number;
+  startDate: Date;
+  endDate: Date;
+  bids: [];
+  createdAt: Date;
+  auctionId: string;
+  status: string;
 }

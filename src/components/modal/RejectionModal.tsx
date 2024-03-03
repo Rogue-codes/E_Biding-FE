@@ -26,7 +26,6 @@ export default function RejectionModal({ closeModal, client }: IApproveModal) {
     closeModal();
       },
       onError: (error: any) => {
-        console.error("An error occurred:", error);
         enqueueSnackbar(error.message, {
           variant: "error",
           anchorOrigin: { vertical: "top", horizontal: "right" },

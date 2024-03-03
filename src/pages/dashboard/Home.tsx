@@ -10,15 +10,15 @@ export default function Home() {
   const [page, setPage] = useState<number>(1);
 
   const searchText = useSelector((state: any) => state?.filter?.searchText);
-
-  console.log(page);
+  const filterByApproval = useSelector(
+    (state: any) => state?.filter?.isFilterByApproval
+  );
 
   const { data: clientData, isLoading } = useQuery(
-    ["clientData", page, searchText],
-    () => apiClient.getAllClient(searchText, page),
+    ["clientData", page, searchText, filterByApproval],
+    () => apiClient.getAllClient(searchText, page, filterByApproval),
     {
       onError: (error: any) => {
-        console.error("An error occurred:", error);
         enqueueSnackbar(error.message, {
           variant: "error",
           anchorOrigin: { vertical: "top", horizontal: "right" },
@@ -26,10 +26,6 @@ export default function Home() {
       },
     }
   );
-
-  // const queryclient = useQueryClient();
-
-  console.log(clientData);
 
   return (
     <div className="w-full relative h-[75vh] mt-36">
