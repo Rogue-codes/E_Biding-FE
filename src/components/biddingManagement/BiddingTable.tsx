@@ -7,10 +7,15 @@ import { useNavigate } from "react-router-dom";
 interface IBiddingTable {
   data: IGetAllAuctionData;
   isLoading: boolean;
-  setPage: React.Dispatch<React.SetStateAction<number>>
-  page:number
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
 }
-export default function BiddingTable({ data, isLoading, page, setPage }: IBiddingTable) {
+export default function BiddingTable({
+  data,
+  isLoading,
+  page,
+  setPage,
+}: IBiddingTable) {
   console.log("auctions: => ", data);
 
   const loadingComponent = () => {
@@ -21,7 +26,7 @@ export default function BiddingTable({ data, isLoading, page, setPage }: IBiddin
     );
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <table className="w-full relative pb-24">
@@ -40,7 +45,7 @@ export default function BiddingTable({ data, isLoading, page, setPage }: IBiddin
         <>
           <tbody className="text-center w-full border-b border-NGA/Light">
             {data?.data?.map((auction: IAuction) => (
-              <tr className="h-12 ">
+              <tr className="h-12 " key={auction._id}>
                 <td className="text-xs text-OBS-Darkest">
                   {formatDate(auction?.createdAt)}
                 </td>
@@ -60,7 +65,12 @@ export default function BiddingTable({ data, isLoading, page, setPage }: IBiddin
                 </td>
                 <td className="">
                   <div className="flex justify-end items-center gap-2 mr-3">
-                    <div className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-NGA-Primary border-NGA-Primary rounded-[4px] !cursor-pointer hover:scale-105 transition-all" onClick={() => navigate(`/bidding-management/${12034}?view=true`) }>
+                    <div
+                      className="text-xs py-1 px-4 font-medium flex justify-center items-center border text-NGA-Primary border-NGA-Primary rounded-[4px] !cursor-pointer hover:scale-105 transition-all"
+                      onClick={() =>
+                        navigate(`/bidding-management/${auction._id}?view=true`)
+                      }
+                    >
                       View
                     </div>
                   </div>
@@ -69,10 +79,10 @@ export default function BiddingTable({ data, isLoading, page, setPage }: IBiddin
             ))}
           </tbody>
           <Pagination
-          setPage={setPage}
-          page={page}
-          lastPage={data?.meta?.last_page}
-        />
+            setPage={setPage}
+            page={page}
+            lastPage={data?.meta?.last_page}
+          />
         </>
       )}
 

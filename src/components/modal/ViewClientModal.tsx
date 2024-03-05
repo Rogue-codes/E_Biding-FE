@@ -6,7 +6,8 @@ import * as apiClient from "../../services/Api";
 import { enqueueSnackbar } from "notistack";
 import { useQuery } from "react-query";
 import { IClient } from "../../interfaces";
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 interface IViewClientModal {
   id: string;
   closeModal: () => void;
@@ -59,28 +60,28 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
         <div>
           <p className="text-sm leading-6 text-NGA/Darkest">Full Name</p>
           <p className="text-[18px] leading-6 text-NGA/Darkest">
-            {isLoading ? "loading.." : client.name}
+            {isLoading ? <Skeleton /> : client.name}
           </p>
         </div>
 
         <div className="my-2">
           <p className="text-sm left-6 text-NGA/Darkest">Company Name</p>
           <p className="text-[18px] leading-6 text-NGA/Darkest">
-            {isLoading ? "loading..." : client.companyName}
+            {isLoading ? <Skeleton /> : client.companyName}
           </p>
         </div>
 
         <div>
           <p className="text-sm left-6 text-NGA/Darkest">Company Address</p>
           <p className="text-[18px] leading-6 text-NGA/Darkest">
-            {isLoading ? "loading..." : client.companyAddress}
+            {isLoading ? <Skeleton /> : client.companyAddress}
           </p>
         </div>
 
         <div className="my-2">
           <p className="text-sm left-6 text-NGA/Darkest">Email Address</p>
           <p className="text-[18px] leading-6 text-NGA/Darkest">
-            {isLoading ? "loading..." : client.email}
+            {isLoading ? <Skeleton /> : client.email}
           </p>
         </div>
 
@@ -88,7 +89,7 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
           <div>
             <p className="text-sm left-6 text-NGA/Darkest">Phone Number</p>
             <p className="text-[18px] leading-6 text-NGA/Darkest">
-              {isLoading ? "loading..." : client.phoneNumber}
+              {isLoading ? <Skeleton /> : client.phoneNumber}
             </p>
           </div>
 
@@ -97,7 +98,7 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
               Alternate Phone Number
             </p>
             <p className="text-[18px] leading-6 text-NGA/Darkest">
-              {isLoading ? "loading..." : client.alternatePhoneNumber}
+              {isLoading ? <Skeleton /> : client.alternatePhoneNumber}
             </p>
           </div>
         </div>
@@ -106,21 +107,21 @@ export default function ViewClientModal({ id, closeModal }: IViewClientModal) {
           <div>
             <p className="text-sm left-6 text-NGA/Darkest">RC Number</p>
             <p className="text-[18px] leading-6 text-NGA/Darkest">
-              {isLoading ? "loading..." : `RC: ${client.RcNumber}`}
+              {isLoading ? <Skeleton /> : `RC: ${client.RcNumber}`}
             </p>
           </div>
 
           <div>
             <p className="text-sm left-6 text-NGA/Darkest">Postal Code</p>
             <p className="text-[18px] leading-6 text-NGA/Darkest">
-              {isLoading ? "loading..." : client.postalCode}
+              {isLoading ? <Skeleton /> : client.postalCode}
             </p>
           </div>
         </div>
 
         <div className="w-full py-2 px-4 border border-NGA/Light mt-4 flex justify-between items-center rounded-lg">
           <p className="text-black leading-6 text-sm">
-            {isLoading ? "loading..." : client.cacDoc}
+            {isLoading ? <Skeleton /> : client.cacDoc}
           </p>
           <button
             className="px-3 py-1 bg-NGA-Primary border border-NGA-Primary text-white rounded-[4px] text-xs cursor-pointer hover:scale-105 transition-all"

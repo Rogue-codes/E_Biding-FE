@@ -29,6 +29,8 @@ export default {
         "OBS-Green":"#47C96B",
         "OBS-Red":"#D93333",
         "NGA/Successful":"#269B47",
+        "NGA/Medium":"#8787A8",
+        "NGA/Accent":"#B94B72",
         black:"#1A1D1F"
       }
     },
