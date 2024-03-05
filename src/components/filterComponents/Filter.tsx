@@ -7,13 +7,12 @@ import {
   handleFilterByApproval,
   handleSearch,
 } from "../../redux/slices/filterSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 
 export default function Filter() {
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
-  // const [FilterByApproval, setFilterByApproval] = useState<boolean>(false);
 
   const searchText = useSelector((state: any) => state?.filter?.searchText);
   const isFilterByApproval = useSelector(
@@ -36,6 +35,7 @@ export default function Filter() {
   }, [fromDate, toDate]);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="w-[calc(100%-25.5vw)] bg-white z-20 fixed left-[26vw] top-24 py-2 px-4">
@@ -97,7 +97,10 @@ export default function Filter() {
             </p>
           </div>
         ) : (
-          <button className="bg-NGA-Primary text-white text-xs flex justify-start items-center gap-2 p-2 rounded-[4px] hover:scale-105 transition-all">
+          <button
+            className="bg-NGA-Primary cursor-pointer text-white text-xs flex justify-start items-center gap-2 p-2 rounded-[4px] hover:scale-105 transition-all"
+            onClick={() => navigate(`/bidding-management/create?new=true`)}
+          >
             <Icons.add />
             Create Bid Request
           </button>

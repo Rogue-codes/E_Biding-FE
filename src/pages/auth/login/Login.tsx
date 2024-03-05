@@ -68,6 +68,7 @@ export default function Login() {
                   value: 3,
                   message: "Username must be at least 3 characters",
                 },
+                
               })}
               type="text"
             />

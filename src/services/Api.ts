@@ -15,6 +15,18 @@ export const login = async (formData: ILoginForm) => {
   }
 };
 
+export const getSession = async () => {
+  try {
+    const response = await ApiFetcher.get(`/validate-token`);
+    return response.data;
+  } catch (error: any) {
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+};
+
 export const getAllClient = async (
   searchText: string,
   page?: number,
@@ -79,6 +91,18 @@ export const getAllAuctions = async (
     const response = await ApiFetcher.get(
       `/auctions/all?search=${searchText}&page=${page}`
     );
+    return response.data;
+  } catch (error: any) {
+    enqueueSnackbar(`${error.response.data.message}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+    });
+  }
+};
+
+export const getAuctionById = async (id: string) => {
+  try {
+    const response = await ApiFetcher.get(`/auction/${id}`);
     return response.data;
   } catch (error: any) {
     enqueueSnackbar(`${error.response.data.message}`, {

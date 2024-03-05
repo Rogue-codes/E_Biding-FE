@@ -16,6 +16,7 @@ import BiddingManagement from "./pages/dashboard/BiddingManagement";
 import { Provider } from "react-redux";
 import { store } from "./redux/store/store";
 import Bid from "./components/biddingManagement/Bid";
+import Createbid from "./components/biddingManagement/Createbid";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
         element: (
           <Layout>
             <Bid />
+          </Layout>
+        ),
+      },
+      {
+        path: "/bidding-management/create",
+        element: (
+          <Layout>
+            <Createbid />
           </Layout>
         ),
       },
